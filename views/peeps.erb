@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chitter</title>
+  </head>
+  <body>
+    <h1>Chitter</h1>
+      <h2>Your Feed</h2>
+        <ul>
+          <% @peeps.each do |peep| %>
+          <li><%= peep %></li>
+          <% end %>
+        </ul>
+  </body>
+</html>
+
