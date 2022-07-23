@@ -12,7 +12,7 @@ class Peep
     result.map{|peep| peep['content']} 
   end
 
-  def self.new(content:)
+  def self.create(content:)
     if ENV['ENVIRONMENT'] == 'test'
       connection = PG.connect(dbname: 'chitter2_test')
     else
