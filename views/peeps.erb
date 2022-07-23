@@ -11,6 +11,10 @@
           <li><%= peep %></li>
           <% end %>
         </ul>
-  </body>
+    <form action="/peeps" method="post">
+      <input type="text" name="content" placeholder="What's Happening?" />
+      <input type="submit" name="Submit" />
+    </form>
+</body>
 </html>
 
