@@ -1,10 +1,11 @@
 require 'peep'
+require 'database_helpers'
 
 describe '.all' do
   it 'shows all Peeps' do
     connection = PG.connect(dbname: 'chitter2_test')
     
-    bookmark = Peep.create(content: 'It was another uneventful day in Badger Falls')
+    peep = Peep.create(content: 'It was another uneventful day in Badger Falls')
     Peep.create(content: 'Where the women are robust, the men are pink cheeked')
     Peep.create(content: 'And the children are pink cheeked and robust')
   
@@ -21,9 +22,11 @@ end
 
 describe '.create' do
   it 'creates a new Peep' do
+  peep = Peep.create(content: "At the Apple Biscuit cafe, where the smiles are free, dont you know, Sven Inquist studied the menu, and finally, he ordered the same thing he has every day.")
+  # persisted_data = persisted_data(id: peep.id)
   
-  Peep.create(content: "At the Apple Biscuit cafe, where the smiles are free, dont you know, Sven Inquist studied the menu, and finally, he ordered the same thing he has every day.")
-
-  expect(Peep.all).to include("At the Apple Biscuit cafe, where the smiles are free, dont you know, Sven Inquist studied the menu, and finally, he ordered the same thing he has every day.")
+  expect(peep).to be_a Peep
+  # expect(peep.id).to eq persisted_data.first['id']
+  expect(peep.content).to eq "At the Apple Biscuit cafe, where the smiles are free, dont you know, Sven Inquist studied the menu, and finally, he ordered the same thing he has every day."
   end
 end

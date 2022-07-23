@@ -8,7 +8,7 @@
       <h2>Your Feed</h2>
         <ul>
           <% @peeps.each do |peep| %>
-          <li><%= peep %></li>
+          <li><%= peep.content %></li>
           <% end %>
         </ul>
     <form action="/peeps" method="post">
