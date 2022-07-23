@@ -14,4 +14,13 @@ describe '.all' do
     expect(peeps).to include('Where the women are robust, the men are pink cheeked')
     expect(peeps).to include('And the children are pink cheeked and robust')
   end
-end 
+end
+
+describe '.new' do
+  it 'creates a new Peep' do
+  
+  Peep.new(content: "At the Apple Biscuit cafe, where the smiles are free, dont you know, Sven Inquist studied the menu, and finally, he ordered the same thing he has every day.")
+
+  expect(Peep.all).to include("At the Apple Biscuit cafe, where the smiles are free, dont you know, Sven Inquist studied the menu, and finally, he ordered the same thing he has every day.")
+  end
+end
