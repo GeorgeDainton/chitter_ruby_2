@@ -1,7 +1,10 @@
+require 'pg'
+
 class Peep
   def self.all
-    ['It was another uneventful day in Badger Falls',
-      'Where the women are robust, the men are pink cheeked',
-      'And the children are pink cheeked and robust']
+    connection = PG.connect(dbname: 'chitter2')
+    result = connection.exec("SELECT * FROM peeps;")
+    result.map do |peep| peep['content']
+    end 
   end 
 end 
