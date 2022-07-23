@@ -2,9 +2,13 @@ require 'pg'
 
 class Peep
   def self.all
-    connection = PG.connect(dbname: 'chitter2')
-    result = connection.exec("SELECT * FROM peeps;")
-    result.map do |peep| peep['content']
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'chitter2_test')
+    else
+      connection = PG.connect(dbname: 'chitter2')
     end 
+
+    result = connection.exec("SELECT * FROM peeps;")
+    result.map{|peep| peep['content']} 
   end 
 end 
