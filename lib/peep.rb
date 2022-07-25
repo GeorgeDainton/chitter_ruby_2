@@ -20,7 +20,7 @@ class Peep
 
     result = connection.exec("SELECT * FROM peeps;")
     result.map do |peep|
-      Peep.new(id: peep['id]'], content: peep['content'], time: peep['time'])
+      Peep.new(id: peep['id'], content: peep['content'], time: peep['time'])
     end
   end
 
@@ -31,7 +31,18 @@ class Peep
       connection = PG.connect(dbname: 'chitter2')
     end 
 
-    result = connection.exec("INSERT INTO peeps (content) VALUES('#{content}') RETURNING id, content, time;")
-    Peep.new(id: result[0]['id]'], content: result[0]['content'], time: result[0]['time'])
-  end 
+    result = connection.exec_params(
+    "INSERT INTO peeps (content) VALUES($1) RETURNING id, content, time;", [content])
+    Peep.new(id: result[0]['id'], content: result[0]['content'], time: result[0]['time'])
+  end
+
+  def self.delete(id:)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'chitter2_test')
+    else
+      connection = PG.connect(dbname: 'chitter2')
+    end 
+
+    connection.exec_params("DELETE FROM peeps WHERE id = $1", [id])
+  end
 end 
