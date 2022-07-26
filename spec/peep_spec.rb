@@ -67,5 +67,14 @@ describe '.create' do
 
       expect(edited_peep.content).to eq 'They taste like burning'
     end
-  end  
+  end
+  
+  describe '.find' do
+    it 'locates a specific Peep' do
+      peep = Peep.create(content: 'Where this one at')
+      found_peep = Peep.find(id: peep.id)
+
+      expect(peep.content).to eq 'Where this one at'
+    end
+  end 
 end

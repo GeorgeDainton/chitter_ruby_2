@@ -58,5 +58,15 @@ class Peep
     Peep.new(id: result[0]['id'], content: result[0]['content'], time: result[0]['time'])
   end 
 
+  def self.find(id:)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'chitter2_test')
+    else
+      connection = PG.connect(dbname: 'chitter2')
+    end 
 
+    result = connection.exec_params("SELECT * FROM peeps WHERE id = $1", [id]
+    )
+    Peep.new(id: result[0]['id'], content: result[0]['content'], time: result[0]['time'])
+  end 
 end 

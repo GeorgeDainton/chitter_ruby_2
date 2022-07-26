@@ -1,5 +1,5 @@
-<form action="/peeps/<%= @peep_id %>" method="post">
+<form action="/peeps/<%= @peep.id %>" method="post">
   <input type="hidden" name="_method" value="PATCH" />
-  <input type="text" name="content" placeholder="Make your mind up" />
+  <input type="text" name="content" value="<%= @peep.content%>" />
   <input type="submit" value="Repost" />
 </form>
