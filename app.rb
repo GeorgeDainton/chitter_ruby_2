@@ -28,5 +28,19 @@ class Chitter < Sinatra::Base
     redirect '/peeps'
   end
 
+  get '/peeps/:id/edit' do
+    @peep_id = params[:id]
+    erb :'peeps/edit'
+  end 
+
+  patch '/peeps/:id' do
+    connection = PG.connect(dbname: 'chitter2_test')
+    connection.exec_params(
+      "UPDATE peeps SET content = $1 WHERE id = $2",
+      [ params[:content], params[:id] ]
+    )
+    redirect '/peeps'
+  end 
+
   run! if app_file == $0
 end

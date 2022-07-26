@@ -45,4 +45,6 @@ class Peep
 
     connection.exec_params("DELETE FROM peeps WHERE id = $1", [id])
   end
+
+
 end 
