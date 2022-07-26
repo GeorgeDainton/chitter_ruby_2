@@ -34,11 +34,7 @@ class Chitter < Sinatra::Base
   end 
 
   patch '/peeps/:id' do
-    connection = PG.connect(dbname: 'chitter2_test')
-    connection.exec_params(
-      "UPDATE peeps SET content = $1 WHERE id = $2",
-      [ params[:content], params[:id] ]
-    )
+    Peep.edit(id: params[:id], content: params[:content])
     redirect '/peeps'
   end 
 

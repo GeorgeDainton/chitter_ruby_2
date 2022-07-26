@@ -46,5 +46,17 @@ class Peep
     connection.exec_params("DELETE FROM peeps WHERE id = $1", [id])
   end
 
+  def self.edit(id:, content:)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'chitter2_test')
+    else
+      connection = PG.connect(dbname: 'chitter2')
+    end 
+
+    result = connection.exec_params("UPDATE peeps SET content = $1 WHERE id = $2 RETURNING id, content, time;", [content, id]
+    )
+    Peep.new(id: result[0]['id'], content: result[0]['content'], time: result[0]['time'])
+  end 
+
 
 end 

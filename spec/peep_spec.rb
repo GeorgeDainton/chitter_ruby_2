@@ -59,4 +59,13 @@ describe '.create' do
       expect(Peep.all.length).to eq 0
     end
   end
+
+  describe '.edit' do
+    it 'updates a peep' do
+      peep = Peep.create(content: 'I ated the purple berries')
+      edited_peep = Peep.edit(id: peep.id, content: 'They taste like burning')
+
+      expect(edited_peep.content).to eq 'They taste like burning'
+    end
+  end  
 end
